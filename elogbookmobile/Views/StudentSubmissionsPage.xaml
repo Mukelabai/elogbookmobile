@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxcv="clr-namespace:DevExpress.XamarinForms.CollectionView;assembly=DevExpress.XamarinForms.CollectionView"
+             xmlns:local="clr-namespace:elogbookmobile.ViewModels"
+             xmlns:templates="clr-namespace:elogbookmobile.Views.Templates"
+             xmlns:model="clr-namespace:elogbookmobile.Models" xmlns:model1="clr-namespace:elogbookapi.Models.API"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.StudentSubmissionsPage">
+    <NavigationPage.TitleView>
+        <templates:DrawerTitleView/>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <dxcv:DXCollectionView  x:Name="ItemsListView"
+            ItemsSource="{Binding StudentSubmissions}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding LoadItemsCommand}"
+            SelectionMode="None">
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit" BackgroundColor="SkyBlue" Command="{Binding Source={x:Reference ItemsListView}, Path=BindingContext.EditSubmissionCommand}" CommandParameter="{Binding .}">
+
+                                </SwipeItem>
+                                <SwipeItem Text="Delete" BackgroundColor="PaleVioletRed" Command="{Binding Source={x:Reference ItemsListView}, Path=BindingContext.DeleteSubmissionCommand}" CommandParameter="{Binding .}">
+
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <StackLayout Padding="18,20,10,01" x:DataType="model1:APISubmission">
+                            <Label Text="{Binding Rotation}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}"/>
+                            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                <Label Text="Hospital:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Hospital}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                            </StackLayout>
+                            <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                <Label Text="Mentor:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"  FontAttributes="Bold"/>
+                                <Label Text="{Binding Mentor}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                            </StackLayout>
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:StudentSubmissionsViewModel}}, Path=ItemTapped}"
+                            CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </SwipeView>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dxn:DrawerPage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:dxn="clr-namespace:DevExpress.XamarinForms.Navigation;assembly=DevExpress.XamarinForms.Navigation"
+                xmlns:dxcv="clr-namespace:DevExpress.XamarinForms.CollectionView;assembly=DevExpress.XamarinForms.CollectionView"
+                xmlns:local="clr-namespace:elogbookmobile.Views"
+                xmlns:effects="clr-namespace:elogbookmobile.Effects"
+                xmlns:vm="clr-namespace:elogbookmobile.ViewModels"
+                DrawerWidth="0.7*"
+                BackgroundColor="{StaticResource NormalBackgroundColor}"
+                x:Class="elogbookmobile.Views.MainPage">
+    <dxn:DrawerPage.DrawerHeaderContent>
+        <ContentView>
+            <Grid ColumnDefinitions="51,*" ColumnSpacing="0" RowSpacing="0" HeightRequest="56">
+                <Image x:Name="Image" Source="ic_close" effects:TintEffect.TintColor="#7c8086" HorizontalOptions="Center"/>
+                <Label x:Name="Label" Text="Close"
+                            Grid.Column="1"
+                            Margin="0,0,0,0"
+                            VerticalOptions="Center"
+                            FontFamily="Roboto"
+                            HorizontalOptions="StartAndExpand"
+                            TextColor="{StaticResource NormalText}" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Tapped="OnCloseTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+        </ContentView>
+    </dxn:DrawerPage.DrawerHeaderContent>
+    <dxn:DrawerPage.DrawerContent>        
+        <dxcv:DXCollectionView ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" SelectionChanged="OnListViewItemSelected" VerticalOptions="Fill" SelectionMode="Single" ItemSize="56">
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type vm:CustomDrawerMenuItem}">
+                    <Grid ColumnDefinitions="51,*" ColumnSpacing="0" RowSpacing="0">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="Label" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                            <Setter TargetName="Image" Property="effects:TintEffect.TintColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />                                            
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Image x:Name="Image" Source="{Binding ImageName}" effects:TintEffect.TintColor="#7c8086" HorizontalOptions="Center"/>
+                        <Label x:Name="Label" Text="{Binding Name}"
+                            Grid.Column="1"
+                            Margin="0,0,0,0"
+                            VerticalOptions="Center"
+                            FontFamily="Roboto"
+                            HorizontalOptions="StartAndExpand"
+                            TextColor="{StaticResource NormalText}">
+                            
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </dxn:DrawerPage.DrawerContent>
+    <dxn:DrawerPage.MainContent>
+        <NavigationPage x:Name="NavigationPage">
+            <x:Arguments>
+                <local:AboutPage>
+                </local:AboutPage>
+            </x:Arguments>
+        </NavigationPage>
+    </dxn:DrawerPage.MainContent>
+</dxn:DrawerPage>

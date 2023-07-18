@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors" 
+             xmlns:dxcv="http://schemas.devexpress.com/xamarin/2014/forms/collectionview" 
+             xmlns:api="clr-namespace:elogbookapi.Models.API"
+             xmlns:local="clr-namespace:elogbookmobile.ViewModels"
+             Title="{Binding Title}"
+             x:Class="elogbookmobile.Views.SubmissionDetailPage">
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem Text="Download Submission Data" Command="{Binding LoadQuestionsCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Publish Submission" x:Name="tiPublish" Command="{Binding PublishSubmissionCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Upload Submission Data" Command="{Binding SyncSubmissionCommand}" Order="Secondary"/>
+       
+        <ToolbarItem Text="Cases" Command="{Binding AddItemCommand}" Order="Primary" IconImageSource="user_512.png" />
+        <ToolbarItem Text="General Questions" Command="{Binding AssignmentQuestionsCommand}" Order="Primary" IconImageSource="edit_512.png" />
+        <ToolbarItem Text="Competencies" Command="{Binding CompetenciesCommand}" Order="Primary" IconImageSource="project_512.png" />
+        
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+             <StackLayout Spacing="5" Padding="15">
+                <Label Text="Submission summary"
+               FontAttributes="Bold"
+               FontSize="Medium" />
+                <Label Text="Rotation:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding Rotation}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>
+            <Label Text="Practicum Site:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="{Binding Hospital}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
+            <Label Text="Mentor:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding Mentor}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>
+            <Label Text="Cases:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="{Binding Cases}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
+            <Label Text="Status:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding Status}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>
+            <Label Text="Grade:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="{Binding Grade}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
+            <Label Text="IsPublished:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding IsPublished}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>            
+            <Label Text="UpdatedOn:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding UpdatedOn}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>            
+            <!--<Label Text="CreatedOn:" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding CreatedOn}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 0"/>-->
+                <BoxView HeightRequest="1" Color="LightGray"/>
+                <Label Text="{Binding AchievementLabel}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalLightText}"/>
+                <ProgressBar x:Name="pbAchievement" Progress="{Binding AchievementProgress}" />
+                <BoxView HeightRequest="1" Color="LightGray" IsVisible="True"/>
+                <Label Text="Comments"
+               FontAttributes="Bold"
+               FontSize="Medium" />
+                <dxe:MultilineEdit x:Name="txtComment" Text="{Binding SelectedPatient,Mode=TwoWay}" LabelText="Comment" TextChanged="txtComment_TextChanged" HorizontalOptions="FillAndExpand"></dxe:MultilineEdit>
+                <Button Text="Add Comment" x:Name="btnAddComment" Clicked="btnAddComment_Clicked" HorizontalOptions="FillAndExpand"  Style="{StaticResource PrimaryButton}"></Button>
+
+                <StackLayout>
+                    <dxcv:DXCollectionView  x:Name="ItemsListView"
+            ItemsSource="{Binding Comments}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding LoadItemsCommand}"
+            SelectionMode="None">
+                        <dxcv:DXCollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Delete" BackgroundColor="SkyBlue" Command="{Binding Source={x:Reference ItemsListView}, Path=BindingContext.DeleteCommentCommand}" CommandParameter="{Binding .}">
+
+                                            </SwipeItem>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <StackLayout Padding="18,20,10,01" x:DataType="api:APISubmissionComment">
+                                        <Label Text="{Binding CreatedByFullName}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="Medium"
+                        TextColor="{StaticResource NormalText}"/>
+                                        <Label Text="{Binding CreatedOn}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                        <Label Text="{Binding CommentText}"
+                        LineBreakMode="WordWrap"
+                        
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}" FontAttributes="Italic"/>
+                                        <Line BackgroundColor="LightGray" HeightRequest="1"></Line>
+
+
+
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:SubmissionDetailViewModel}}, Path=ItemTapped}"
+                            CommandParameter="{Binding .}">
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </SwipeView>
+                            </DataTemplate>
+                        </dxcv:DXCollectionView.ItemTemplate>
+                    </dxcv:DXCollectionView>
+
+                </StackLayout>
+            </StackLayout>
+            
+        </ScrollView>
+       
+    </ContentPage.Content>
+</ContentPage>

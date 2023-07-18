@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="elogbookmobile.Views.Templates.DrawerTitleView">
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Image  VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Start"
+                    Source="ic_drawer_button">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnMenuClicked" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label  Text="{Binding Title}"
+                    FontSize="16"
+                    FontFamily="Univia-Pro"
+                    VerticalOptions="CenterAndExpand"
+                    TextColor="{StaticResource DrawerTitleTextColor}">
+            </Label>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

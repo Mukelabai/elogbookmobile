@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:editors="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:dxe="clr-namespace:DevExpress.XamarinForms.Editors;assembly=DevExpress.XamarinForms.Editors"
+             Title="{Binding Title}"
+             x:Class="elogbookmobile.Views.NewAssignmentQuestionsPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="15" Padding="15" >
+            <StackLayout Orientation="Horizontal">
+                
+                <Button Text="View" x:Name="btnLoadPatient" Clicked="btnLoadPatient_Clicked" HorizontalOptions="FillAndExpand" Style="{StaticResource PrimaryButton}"></Button>
+
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout x:Name="Panel">
+
+
+
+                    </StackLayout>
+                    <StackLayout>
+                        <Button Text="Save" x:Name="btnSaveData" Clicked="btnSaveData_Clicked" HorizontalOptions="FillAndExpand" Style="{StaticResource PrimaryButton}" IsVisible="False"></Button>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

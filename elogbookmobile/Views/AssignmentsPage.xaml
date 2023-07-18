@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxcv="clr-namespace:DevExpress.XamarinForms.CollectionView;assembly=DevExpress.XamarinForms.CollectionView"
+             xmlns:dxe="clr-namespace:DevExpress.XamarinForms.Editors;assembly=DevExpress.XamarinForms.Editors"
+             xmlns:local="clr-namespace:elogbookmobile.ViewModels"
+             xmlns:templates="clr-namespace:elogbookmobile.Views.Templates"
+             xmlns:model="clr-namespace:elogbookmobile.Models" xmlns:model1="clr-namespace:elogbookapi.Models.API"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.AssignmentsPage">
+    <NavigationPage.TitleView>
+        <templates:DrawerTitleView/>
+    </NavigationPage.TitleView>
+   
+    <ContentPage.Content>
+        <StackLayout>
+            <!--
+            <StackLayout Padding="15">
+            <dxe:ComboBoxEdit ItemsSource="{Binding AssignmentYears}" DisplayMember="Year" ValueMember="Year" LabelText="Academic Year" SelectedItem="{Binding SelectedYear}" SelectionChangedCommand="{Binding LoadItemsCommand}">
+            </dxe:ComboBoxEdit>
+            </StackLayout>
+            -->
+            <dxcv:DXCollectionView  x:Name="ItemsListView"
+            ItemsSource="{Binding Assignments}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding LoadItemsCommand}"
+            SelectionMode="None">
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        
+                            <StackLayout Padding="18,20,10,01" x:DataType="model1:APIAssignment">
+                                <Label Text="{Binding Rotation}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="Medium"
+                        TextColor="{StaticResource NormalText}"/>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                    <Label Text="Elogbook:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding ElogbookName}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                    <Label Text="Rotation Start:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}" FontAttributes="Bold"/>
+                                    <Label Text="{Binding RotationStart, StringFormat='{0:MMMM dd, yyyy}'}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                    <Label Text="Rotation End:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding RotationEnd, StringFormat='{0:MMMM dd, yyyy}'}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="1">
+                                    <Label Text="Due date:" Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}"  FontAttributes="Bold" />
+                                    <Label Text="{Binding DueDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                        LineBreakMode="WordWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:AssignmentsViewModel}}, Path=ItemTapped}"
+                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                       
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

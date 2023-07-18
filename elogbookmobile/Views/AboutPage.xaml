@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:elogbookmobile.Views.Templates"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.AboutPage">
+    <NavigationPage.TitleView>
+        <templates:DrawerTitleView/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.RowSpan="2" Source="ic_background" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
+                <Image Source="lmmu_logo" Margin="0,20,0,0"/>
+                             
+            </Grid>
+            <ScrollView Grid.Row="1">
+                <StackLayout Orientation="Vertical" Padding="25,15,25,15" Spacing="10">
+                    <Label x:Name="lblWelcome" Text="Welcome to the LMMU elogbook--an app that allows students and supervisors to conveniently record and manage medical rotational assignments." FontFamily="Roboto" FontSize="18" TextColor="{StaticResource NormalText}"/>
+                                    </StackLayout>
+            </ScrollView>
+            <Button Grid.Row="2" Margin="25,0,25,20"
+                    Text="Start Here"                    
+                    Style="{StaticResource PrimaryButton}"
+                    Command="{Binding OpenWebCommand}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

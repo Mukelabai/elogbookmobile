@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="New Submission"
+             xmlns:dxdf="clr-namespace:DevExpress.XamarinForms.DataForm;assembly=DevExpress.XamarinForms.Editors"
+             xmlns:dxe="clr-namespace:DevExpress.XamarinForms.Editors;assembly=DevExpress.XamarinForms.Editors"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.NewSubmissionPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="15" Padding="15">
+            <dxe:ComboBoxEdit ItemsSource="{Binding Assignments}" DisplayMember="AssignmentName" ValueMember="AssignmentId" LabelText="Assignment" SelectedItem="{Binding SelectedAssignment}">
+            </dxe:ComboBoxEdit>
+            <dxe:ComboBoxEdit ItemsSource="{Binding Hospitals}" DisplayMember="HospitalName" ValueMember="HospitalId" LabelText="Practicum Site" SelectedItem="{Binding SelectedHospital}">
+            </dxe:ComboBoxEdit>
+            <dxe:ComboBoxEdit ItemsSource="{Binding Mentors}" DisplayMember="MentorName" ValueMember="MentorId" SelectedItem="{Binding SelectedMentor}" LabelText="Mentor" >
+                
+            </dxe:ComboBoxEdit>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" Style="{StaticResource PrimaryButton}"/>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" Style="{StaticResource PrimaryButton}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

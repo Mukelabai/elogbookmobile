@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxg="clr-namespace:DevExpress.XamarinForms.DataGrid;assembly=DevExpress.XamarinForms.Grid"
+             xmlns:templates="clr-namespace:elogbookmobile.Views.Templates"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.DataGridPage">
+    <NavigationPage.TitleView>
+        <templates:DrawerTitleView/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <dxg:DataGridView x:Name="grid" ItemsSource="{Binding Items}">
+            <dxg:DataGridView.Columns>
+                <dxg:TextColumn FieldName="Text" Caption="Text" />
+                <dxg:TextColumn FieldName="Description" Caption="Description" />
+                <dxg:DateColumn FieldName="StartTime" Caption="Time" DisplayFormat="h:mm tt" />
+            </dxg:DataGridView.Columns>
+        </dxg:DataGridView>
+    </ContentPage.Content>
+</ContentPage>

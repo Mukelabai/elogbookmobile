@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxcv="clr-namespace:DevExpress.XamarinForms.CollectionView;assembly=DevExpress.XamarinForms.CollectionView"
+             xmlns:dxe="clr-namespace:DevExpress.XamarinForms.Editors;assembly=DevExpress.XamarinForms.Editors"
+             xmlns:local="clr-namespace:elogbookmobile.ViewModels"
+             xmlns:templates="clr-namespace:elogbookmobile.Views.Templates"
+             xmlns:model="clr-namespace:elogbookmobile.Models" xmlns:model1="clr-namespace:elogbookapi.Models.API"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             x:Class="elogbookmobile.Views.StaffCasesPage">
+    
+    <ContentPage.Content>
+
+        <StackLayout>
+           
+            <dxcv:DXCollectionView  x:Name="ItemsListView"
+            ItemsSource="{Binding Items}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding LoadItemsCommand}"
+            SelectionMode="None">
+
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        
+
+                            <StackLayout Padding="18,20,10,01" x:DataType="model1:APICase">
+                                <Label Text="{Binding Patient}"
+                        LineBreakMode="NoWrap"
+                        Style="{DynamicResource ListItemTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="14"
+                        TextColor="{StaticResource NormalText}"/>
+                                <Label Text="{Binding CreatedOn}"
+                        LineBreakMode="NoWrap"
+                        Style="{DynamicResource ListItemDetailTextStyle}"
+                        FontFamily="Roboto"
+                        FontSize="12"
+                        TextColor="{StaticResource NormalLightText}"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:StaffCasesViewModel}}, Path=ItemTapped}"
+                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
