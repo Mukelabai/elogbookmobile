@@ -16,8 +16,8 @@ namespace elogbookmobile.Services
     public static class APIUserService
     {
 
-        static string baseURL = "https://elogapi.coinfomas.net";
-        private const string APIKeyToCheck = "86842a38-310c-48cf-a64a-98ef66c1e775";
+        static string baseURL = "APIURL";
+        private const string APIKeyToCheck = "APIKEY";
 
         static HttpClient httpClient;
         static APIUserService()
